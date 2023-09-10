@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { Navbar } from '../Navbar';
 
-const TitlePage = () => {
+const Home = () => {
   return (
     <div className="title-page">
-      <h1>Welcome to My Website</h1>
+      <h1>Workout App</h1>
       <p>This is the home page of my website.</p>
     </div>
   );
 };
 
-export default TitlePage;
+export default Home;
