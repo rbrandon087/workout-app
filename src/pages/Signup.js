@@ -14,7 +14,8 @@ function SignUp() {
       setSignUpError("Email and Password fields cannot be empty.");
       return;
     }
-
+    console.log("Email:", email);
+    console.log("Password:", password);
     // Your signup logic here (Supabase or other authentication logic)
 
     // If successful:
@@ -60,7 +61,7 @@ function SignUp() {
   return (
     <div>
       
-
+      console.log(email)
       <div style={loginContainerStyle}>
         <div style={loginFormStyle}>
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Sign Up</h1>
@@ -100,5 +101,5 @@ function SignUp() {
     </div>
   );
 }
-
 export default SignUp;
+
