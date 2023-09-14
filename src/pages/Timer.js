@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Navbar from '../Navbar';
-=======
 import React from "react";
 import { Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
->>>>>>> chrisw
 
 const supabase = createClient(
   "https://zwcwryojtrkygrslhndl.supabase.co",

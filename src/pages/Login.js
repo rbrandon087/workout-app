@@ -16,18 +16,6 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-<<<<<<< HEAD
-  const handleLogin = async () => {
-    if (formData.email && formData.password) {
-      try {
-        // Simulate a successful login (replace with your actual authentication logic)
-        // In this example, we assume that any non-empty email and password combination is successful
-        alert('Login successful!');
-        navigate('/home'); // Redirect to the home page
-      } catch (error) {
-        console.error('Authentication error:', error);
-        alert('Login failed. Please try again.');
-=======
   async function check_login_in_db() {
     try {
       // Log user input values before making the database query
@@ -52,7 +40,6 @@ const Login = () => {
           console.log("Login failed, please try logging in again");
           // You can handle the case of unsuccessful login here.
         }
->>>>>>> chrisw
       }
     } catch (error) {
       console.error("Error checking user in database:", error.message);
@@ -172,31 +159,9 @@ const Login = () => {
           >
             Login
           </button>
-<<<<<<< HEAD
-         
-          <button
-            type="button"
-            onClick={handleSignup}
-            style={{
-              width: '100%',
-              padding: '10px',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              backgroundColor: '#0B1B3D',
-              color: '#fff',
-              cursor: 'pointer',
-              marginTop: '10px',
-            }}
-          >
-            Sign Up
-          </button>
-=======
           <p style={{ textAlign: "center", marginTop: "10px" }}>
             Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
->>>>>>> chrisw
         </form>
       </div>
     </div>

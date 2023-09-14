@@ -20,14 +20,6 @@ function SignUp() {
       setSignUpError("Email and Password fields cannot be empty.");
       return;
     }
-<<<<<<< HEAD
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Your signup logic here (Supabase or other authentication logic)
-
-    // If successful:
-    // window.alert("Signup successful. Check your email for the verification link.");
-=======
 
     try {
       await add_signup_to_db();
@@ -39,7 +31,6 @@ function SignUp() {
       console.error("Error during signup:", error.message);
       // Handle any signup-related errors here.
     }
->>>>>>> chrisw
   };
 
   async function add_signup_to_db() {
@@ -104,11 +95,6 @@ function SignUp() {
 
   return (
     <div>
-<<<<<<< HEAD
-      
-      console.log(email)
-=======
->>>>>>> chrisw
       <div style={loginContainerStyle}>
         <div style={loginFormStyle}>
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Sign Up</h1>
