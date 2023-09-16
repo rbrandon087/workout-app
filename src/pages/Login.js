@@ -64,7 +64,7 @@ const Login = () => {
               id="email"
               name="email"
               value={state.email}
-              onChange={e => setState({ ...state, password: e.target.value })}
+              onChange={e => setState({ ...state, email: e.target.value })}
               placeholder="Email"
               style={{
                 width: "100%",
