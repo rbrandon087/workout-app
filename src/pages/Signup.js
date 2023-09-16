@@ -1,25 +1,49 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://zwcwryojtrkygrslhndl.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3Y3dyeW9qdHJreWdyc2xobmRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyOTE1MzIsImV4cCI6MjAwOTg2NzUzMn0.6rfOo0VhEbNh6MN5gjEtmHOFo1jEg0C3-D_o34JfZjU"
+);
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signUpError, setSignUpError] = useState("");
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async e => {
     e.preventDefault();
 
     if (email === "" || password === "") {
       setSignUpError("Email and Password fields cannot be empty.");
       return;
     }
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Your signup logic here (Supabase or other authentication logic)
 
-    // If successful:
-    // window.alert("Signup successful. Check your email for the verification link.");
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      setSignUpError(processSupabaseError(error));
+    } else {
+      window.alert(
+        "Signup successful. Check your email for the verification link."
+      );
+    }
+  };
+
+  const processSupabaseError = error => {
+    switch (error.message) {
+      case "A user with this email already exists.":
+        return "The email you entered is already in use. Please use a different email.";
+      case "Password must be at least 6 characters.":
+        return "Your password needs to be at least 6 characters long.";
+      default:
+        return error.message;
+    }
   };
 
   const loginContainerStyle = {
@@ -60,8 +84,6 @@ function SignUp() {
 
   return (
     <div>
-      
-      console.log(email)
       <div style={loginContainerStyle}>
         <div style={loginFormStyle}>
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Sign Up</h1>
@@ -74,7 +96,7 @@ function SignUp() {
                 id="emailInput"
                 value={email}
                 style={inputStyle}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
             <div style={{ marginBottom: "10px" }}>
@@ -85,7 +107,7 @@ function SignUp() {
                 id="passwordInput"
                 value={password}
                 style={inputStyle}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </div>
             <button style={buttonStyle} type="submit">
@@ -102,4 +124,3 @@ function SignUp() {
   );
 }
 export default SignUp;
-
