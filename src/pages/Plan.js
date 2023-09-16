@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Navbar from '../Navbar';
-=======
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import WorkoutPlan from '../components/WorkoutPlan';
 import './plan.css';
->>>>>>> 8d711e177cbd600cf1bb4e5a1fbe5efc12a96048
 
 class Plan extends Component {
     constructor() {
@@ -60,18 +54,27 @@ class Plan extends Component {
             calendarHTML += `<div class="day">${dayNumber}`;
             
             // Check if there are workouts for this day
-            const workoutsForDay = workouts.filter((workout) => {
+            const workoutsForDay = workouts.filter((workout, index) => {
                 const workoutDate = new Date(workout.date);
-                return workoutDate.getDate() === dayNumber && workoutDate.getMonth() === month && workoutDate.getFullYear() === year;
+                return (
+                    workoutDate.getDate() === dayNumber &&
+                    workoutDate.getMonth() === month &&
+                    workoutDate.getFullYear() === year
+                );
             });
 
             if (workoutsForDay.length > 0) {
                 calendarHTML += '<ul>';
-                workoutsForDay.forEach((workout) => {
-                    calendarHTML += `<li>${workout.exercise} - ${workout.duration} mins</li>`;
+                workoutsForDay.forEach((workout, index) => {
+                    calendarHTML += `
+                        <li>
+                            ${workout.exercise} - ${workout.duration} mins
+                            <button onClick={() => this.handleDelete(index)}>Delete</button>
+                        </li>`;
                 });
                 calendarHTML += '</ul>';
             }
+                       
 
             calendarHTML += '</div>';
             dayNumber++;
@@ -120,6 +123,17 @@ class Plan extends Component {
             this.generateCalendar();
         });
     }
+
+    handleDelete = (index) => {
+        this.setState((prevState) => {
+            const updatedWorkouts = prevState.workouts.filter((_, i) => i !== index);
+            return { workouts: updatedWorkouts };
+        }, () => {
+            // After deleting the workout, regenerate the calendar to reflect the changes
+            this.generateCalendar();
+        });
+    }
+    
 
     render() {
         return (
