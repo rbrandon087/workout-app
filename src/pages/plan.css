@@ -1,0 +1,49 @@
+/* Container styles */
+.plan {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 100px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Month heading styles */
+  .plan .month {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .plan .month h2 {
+    font-size: 60px;
+    margin: 0;
+  }
+
+  
+  
+  /* Day cells styles */
+  .plan .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .plan .day {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  /*button month styling */
+  .calendar {
+    text-align: center;
+  }
+  
+  button {
+    
+  }
+ 
+  
