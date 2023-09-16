@@ -71,7 +71,6 @@ class Plan extends Component {
                     calendarHTML += `
                         <li>
                             ${workout.exercise} - ${workout.duration} mins
-                            <button onClick={() => this.handleDelete(index)}>Delete</button>
                         </li>`;
                 });
                 calendarHTML += '</ul>';
@@ -126,16 +125,16 @@ class Plan extends Component {
         });
     }
 
-    handleDelete = (index) => {
-        this.setState((prevState) => {
-            const updatedWorkouts = prevState.workouts.filter((_, i) => i !== index);
-            return { workouts: updatedWorkouts };
-        }, () => {
+    //handleDelete = (index) => {
+     //   this.setState((prevState) => {
+    //        const updatedWorkouts = prevState.workouts.filter((_, i) => i !== index);
+    //        return { workouts: updatedWorkouts };
+    //    }, () => {
             // After deleting the workout, regenerate the calendar to reflect the changes
-            this.generateCalendar();
-        });
-    }
-    
+     //       this.generateCalendar();
+    //    });
+  //  }
+
 
     render() {
         return (
