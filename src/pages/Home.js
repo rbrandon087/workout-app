@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../Navbar";
 import { createClient } from "@supabase/supabase-js";
+import "./home.css"
 
 const supabase = createClient(
   "https://zwcwryojtrkygrslhndl.supabase.co",
@@ -10,9 +11,11 @@ const supabase = createClient(
 
 const Home = () => {
   return (
-    <div className="title-page">
+    <div className="image container">
       <h1>Workout App</h1>
-      <p>This is the home page of my website.</p>
+      <p>Get Your Workout on!</p>
+      <img src={process.env.PUBLIC_URL + '/runner.jpg'} alt="My Image" />
+    
     </div>
   );
 };

@@ -1,0 +1,18 @@
+.image-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 300px;
+    padding: 20px;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    float: right; /* Float the image to the right */
+  }
+
+  img{
+    width: 100%;
+  }
+  
