@@ -8,79 +8,32 @@ const supabase = createClient(
 );
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [state, setState] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  async function check_login_in_db() {
-    try {
-      // Log user input values before making the database query
-      console.log("User input values:", formData.email, formData.password);
-
-      const { data, error } = await supabase
-        .from("Users")
-        .select()
-        .eq("email", formData.email.toString())
-        .eq("password", formData.password.toString())
-        .single();
-
-      if (error) {
-        console.error("Error checking user in database:", error.message);
-      } else {
-        if (data) {
-          // User with the provided email and password exists in the database
-          console.log("Login successful");
-          // You can perform actions for a successful login here.
-        } else {
-          // User with the provided email and password does not exist in the database
-          console.log("Login failed, please try logging in again");
-          // You can handle the case of unsuccessful login here.
-        }
-      }
-    } catch (error) {
-      console.error("Error checking user in database:", error.message);
-    }
-  }
 
   const handleLogin = async () => {
     try {
-      const { user, error } = await supabase.auth.signInWithPassword({
-        email: formData.email.toString(),
-        password: formData.password.toString(),
+      const { email, password } = state;
+      if (!email || !password) {
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
       });
 
       if (error) {
-        console.error("Authentication error:", error.message);
-        alert("Login failed. Please try again.");
-      } else {
-        console.log("Login successful:", user);
-        // You can redirect the user or perform other actions upon successful login.
-        navigate("/");
+        console.error("Login failed:", error.message);
+        alert("Login failed! Please check your credentials and try again.");
+        return;
       }
-    } catch (error) {
-      console.error("Authentication error:", error.message);
-      alert("Login failed. Please try again.");
-    }
-  };
 
-  const handleSignup = async () => {
-    if (formData.email && formData.password) {
-      try {
-        // Simulate a successful signup (replace with your actual signup logic)
-        // In this example, we assume that any non-empty email and password combination is successful
-        alert('Signup successful!');
-        navigate('/home'); // Redirect to the home page
-      } catch (error) {
-        console.error('Signup error:', error);
-        alert('Signup failed. Please try again.');
-      }
-    } else {
-      // Handle form validation error
-      alert('Please enter both email and password.');
+      localStorage.setItem("token", data.access_token);
+      alert("Login successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
     }
   };
 
@@ -110,8 +63,8 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
-              value={formData.email}
-              onChange={handleInputChange}
+              value={state.email}
+              onChange={e => setState({ ...state, password: e.target.value })}
               placeholder="Email"
               style={{
                 width: "100%",
@@ -129,8 +82,8 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={state.password}
+              onChange={e => setState({ ...state, password: e.target.value })}
               placeholder="Password"
               style={{
                 width: "100%",

@@ -21,41 +21,30 @@ function SignUp() {
       return;
     }
 
-    try {
-      await add_signup_to_db();
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      setSignUpError(processSupabaseError(error));
+    } else {
       window.alert(
         "Signup successful. Check your email for the verification link."
       );
-      // You can also redirect the user to another page if needed.
-    } catch (error) {
-      console.error("Error during signup:", error.message);
-      // Handle any signup-related errors here.
     }
   };
 
-  async function add_signup_to_db() {
-    try {
-      const { data, error } = await supabase
-        .from("Users")
-        .insert([
-          {
-            email: email,
-            password: password,
-          },
-        ])
-        .single();
-
-      if (error) {
-        console.error("Error adding user to database:", error.message);
-      } else {
-        console.log("User added to database:", data);
-        // You can perform additional actions here after adding the user
-        // For example, show a success message or redirect to another page.
-      }
-    } catch (error) {
-      console.error("Error adding user to database:", error.message);
+  const processSupabaseError = error => {
+    switch (error.message) {
+      case "A user with this email already exists.":
+        return "The email you entered is already in use. Please use a different email.";
+      case "Password must be at least 6 characters.":
+        return "Your password needs to be at least 6 characters long.";
+      default:
+        return error.message;
     }
-  }
+  };
 
   const loginContainerStyle = {
     display: "flex",
@@ -135,4 +124,3 @@ function SignUp() {
   );
 }
 export default SignUp;
-
