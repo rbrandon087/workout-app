@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import Tabata from '../components/Tabata';
-import ForTime from '../components/forTime';
+import ForTime from '../components/ForTime';
 
 class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            workDuration: parseInt(props.location.search.split('=')[1], 10),
-            restDuration: parseInt(props.location.search.split('=')[2], 10),
-            totalDuration: parseInt(props.location.search.split('=')[3], 10)
+            workDuration: 30,
+            restDuration: 30,
+            totalDuration: 1200
         };
     }
 
     render() {
         return(
             <div>
-                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration}/>
-            </div>,
-            <div>
-                <ForTime totalTime={this.state.totalTime} />
+                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration} />
+                <ForTime totalTime={this.state.totalDuration} />
             </div>
         )
     }

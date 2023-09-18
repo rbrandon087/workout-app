@@ -4,43 +4,91 @@ class Tabata extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            totalTime: props.totalTime,
+            totalRounds: this.calculateRounds(props.totalTime),
+            currentRound: 0,
             isRunning: false,
             isResting: false,
             intervalDuration: props.workDuration,
             restDuration: props.restDuration,
-            remainingDuration: props.workDuration,
+            remainingDuration: props.workDuration
         };
+    }
+
+    handleTotalTimeChange(event) {
+        const newTotalTime = parseInt(event.target.value, 10);
+        this.setState({ totalTime: newTotalTime, totalRounds: this.calculateRounds(newTotalTime) });
+    }
+
+    calculateRounds(totalTime) {
+        return Math.floor(totalTime / (this.props.workDuration + this.props.restDuration));
     }
     
     updatedTimerDisplay() {
-        const { isResting, remainingDuration } = this.state;
+        const { isResting, remainingDuration, totalRounds, currentRound } = this.state;
         const minutes = Math.floor(remainingDuration / 60);
         const seconds = remainingDuration % 60;
 
-        return `${isResting ? 'Work' : 'Rest'}: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        const phase = isResting ? "Rest" : "Work";
+
+        return(
+            <div>
+                <div>Total Rounds: {totalRounds}</div>
+                <div>Current Round: {currentRound}</div>
+                <div>
+                    {phase}: {minutes}{seconds < 10 ? '0' : ''}{seconds}
+                </div>
+            </div>
+        )
     }
 
     startTimer() {
-        if(!this.state.isRunning) {
-            this.setState({ isRunning: true });
+        if(!this.state.isRunning && this.state.totalRounds > 0) {
+            const { isResting, intervalDuration, restDuration} = this.state;
+            const initialRemainingDuration = isResting ? restDuration : intervalDuration;
+            
+            this.setState({ isRunning: true, remainingDuration: initialRemainingDuration });
 
             const interval = setInterval(() => {
-                const { totalTime, isResting, remainingDuration } = this.state;
-                this.setState({ totalTime: totalTime + 1, remainingDuration: remainingDuration - 1});
+                const { 
+                totalRounds, 
+                isResting, 
+                remainingDuration, 
+                intervalDuration, 
+                restDuration,
+                currentRound 
+                } = this.state;
+                
+                const updatedRemainingDuration = remainingDuration - 1
 
-                if (remainingDuration <= 0) {
+                if (updatedRemainingDuration >= 0) {
+                    this.setState({ remainingDuration: updatedRemainingDuration })
+                } else {
                     clearInterval(interval);
 
                     if(isResting) {
-                        this.setState({ isResting: false, remainingDuration: this.props.workDuration });
+                        this.setState({ 
+                            isResting: false,
+                            remainingDuration: intervalDuration,
+                            currentRound: currentRound + 1 
+                        }, () => {
+                            setTimeout(() => {
+                                this.startTimer();
+                            }, 500);
+                        });
                     } else {
-                        this.setState({ isResting: true, remainingDuration: this.props.restDuration });
+                        this.setState({ 
+                            isResting: true,
+                            remainingDuration: restDuration 
+                        }, () => {
+                            setTimeout(() => {
+                                this.startTimer();
+                            }, 500);
+                        });
                     }
 
-                    setTimeout(() => {
-                        this.startTimer();
-                    }, 1000);
+                    if(currentRound + 1 < totalRounds){
+                        this.setState({ isRunning: false });
+                    }
                 }
             }, 1000)
 
@@ -53,16 +101,22 @@ class Tabata extends Component{
         if(interval) {
             clearInterval(interval);
         }
-        this.setState({ isRunning: false, totalTime: 0, remainingDuration: this.props.workDuration });
+        this.setState({ isRunning: false, isResting: false, remainingDuration: this.props.workDuration });
     }
 
     render() {
-        const { isRunning } = this.state;
+        const { isRunning, totalTime } = this.state;
 
         return (
             <div>
                 <h1>Tabata</h1>
                 <div id="tabataTimer">{this.updatedTimerDisplay()}</div>
+                <input 
+                    type="number"
+                    placeholder='Enter Total Time (seconds)'
+                    defaultValue={totalTime}
+                    onChange={(e) => this.handleTotalTimeChange(e)}
+                />
                 <button onClick={() => this.startTimer()} disabled={isRunning}>
                     Start
                 </button>
