@@ -1,7 +1,9 @@
+import Navbar from '../Navbar';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import WorkoutPlan from '../components/WorkoutPlan';
 import './plan.css';
+
 
 class Plan extends Component {
     constructor() {

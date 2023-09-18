@@ -1,74 +1,97 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://zwcwryojtrkygrslhndl.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3Y3dyeW9qdHJreWdyc2xobmRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyOTE1MzIsImV4cCI6MjAwOTg2NzUzMn0.6rfOo0VhEbNh6MN5gjEtmHOFo1jEg0C3-D_o34JfZjU"
+);
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [state, setState] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleLogin = async () => {
-    // Implement your login logic here, including validation and error handling
-    if (formData.email && formData.password) {
-      // Perform authentication logic here (e.g., API call)
-      try {
-        // Successful authentication
-        alert('Login successful!');
-        navigate('/');
-      } catch (error) {
-        // Handle authentication error (display error message to the user)
-        console.error('Authentication error:', error);
-        alert('Login failed. Please try again.');
+    try {
+      const { email, password } = state;
+      if (!email || !password) {
+        return;
       }
-    } else {
-      // Handle form validation error
-      alert('Please enter both email and password.');
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        console.error("Login failed:", error.message);
+        alert("Login failed! Please check your credentials and try again.");
+        return;
+      }
+
+      localStorage.setItem("token", data.access_token);
+      alert("Login successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
     }
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ backgroundColor: '#f2f2f2', padding: '30px', border: '1px solid #ccc', borderRadius: '5px', width: '350px' }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h1>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#f2f2f2",
+          padding: "30px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          width: "350px",
+        }}
+      >
+        <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h1>
         <form>
-          <div style={{ marginBottom: '10px' }}>
+          <div style={{ marginBottom: "10px" }}>
             <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
               name="email"
-              value={formData.email}
-              onChange={handleInputChange}
+              value={state.email}
+              onChange={e => setState({ ...state, email: e.target.value })}
               placeholder="Email"
               style={{
-                width: '100%',
-                padding: '10px',
-                marginBottom: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                fontSize: '16px',
+                width: "100%",
+                padding: "10px",
+                marginBottom: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                fontSize: "16px",
               }}
             />
           </div>
-          <div style={{ marginBottom: '10px' }}>
+          <div style={{ marginBottom: "10px" }}>
             <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
               name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={state.password}
+              onChange={e => setState({ ...state, password: e.target.value })}
               placeholder="Password"
               style={{
-                width: '100%',
-                padding: '10px',
-                marginBottom: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                fontSize: '16px',
+                width: "100%",
+                padding: "10px",
+                marginBottom: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                fontSize: "16px",
               }}
             />
           </div>
@@ -76,20 +99,20 @@ const Login = () => {
             type="button"
             onClick={handleLogin}
             style={{
-              width: '100%',
-              padding: '10px',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              backgroundColor: '#0B1B3D',
-              color: '#fff',
-              cursor: 'pointer',
+              width: "100%",
+              padding: "10px",
+              border: "none",
+              borderRadius: "5px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              backgroundColor: "#0B1B3D",
+              color: "#fff",
+              cursor: "pointer",
             }}
           >
             Login
           </button>
-          <p style={{ textAlign: 'center', marginTop: '10px' }}>
+          <p style={{ textAlign: "center", marginTop: "10px" }}>
             Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
         </form>
