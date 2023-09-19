@@ -16,8 +16,10 @@
   }
   
   .card-title {
-    font-size: 24px;
+    font-size: 60px;
     font-weight: bold;
+    color: black;
+    
   }
   
   .card-text {

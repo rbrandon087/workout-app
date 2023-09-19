@@ -1,49 +1,84 @@
-/* Container styles */
 .plan {
-    font-family: Arial, sans-serif;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 100px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  /* Month heading styles */
-  .plan .month {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  .plan .month h2 {
-    font-size: 60px;
-    margin: 0;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #4f5f76;
+  border: none;
+  border-radius: 5px;
+  padding: 60px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  
-  
-  /* Day cells styles */
-  .plan .days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-  
-  .plan .day {
-    text-align: center;
-    padding: 30px;
-    background-color: #804646;
-    border: 1px solid #e00303;
-    border-radius: 3px;
-  }
+.plan .month {
+  text-align: center;
+  margin-bottom: 10px;
+  color: white;
+}
 
-  /*button month styling */
-  .calendar {
-    text-align: center;
-  }
-  
-  button {
-    
-  }
- 
-  
+.plan .month h2 {
+  font-size: 80px;
+  margin: 0;
+}
+
+.custom-button {
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.plan .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  color: black;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.plan .day {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border: 1px solid #f8f1f1;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.calendar {
+  text-align: center;
+}
+
+button {
+  background-color: white;
+  border-style: round;
+}
+
+body {
+  background-color: #4f5f76;
+}
+
+.workout-list {
+  list-style: none;
+  padding: 0;
+}
+
+.workout-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.workout-exercise {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.workout-duration {
+  font-size: 14px;
+  color: #666;
+}

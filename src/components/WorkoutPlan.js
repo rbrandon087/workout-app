@@ -21,23 +21,18 @@ class WorkoutPlan extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    // Split the date input into year, month, and day components
     const [year, month, day] = this.state.date.split("-").map(Number);
 
-    // Create a JavaScript Date object using the parsed components
-    const workoutDate = new Date(year, month - 1, day); // Month is zero-based
+    const workoutDate = new Date(year, month - 1, day);
 
-    // Create a workout object with the parsed date and other form data
     const workout = {
       date: workoutDate,
       exercise: this.state.exercise,
       duration: this.state.duration,
     };
 
-    // Call a function to add the workout to the calendar
     this.props.addWorkout(workout);
 
-    // Clear the form
     this.setState({
       date: "",
       exercise: "",
@@ -57,9 +52,9 @@ class WorkoutPlan extends Component {
             onChange={this.handleChange}
             style={{
               padding: "10px",
-              border: "1px solid pink",
+              border: "1px solid black",
               borderRadius: "4px",
-              width: '180px'
+              width: "180px",
             }}
           />
           <input
@@ -70,9 +65,9 @@ class WorkoutPlan extends Component {
             onChange={this.handleChange}
             style={{
               padding: "10px",
-              border: "1px solid pink",
+              border: "1px solid black",
               borderRadius: "4px",
-              width: '180px'
+              width: "180px",
             }}
           />
           <input
@@ -83,9 +78,9 @@ class WorkoutPlan extends Component {
             onChange={this.handleChange}
             style={{
               padding: "10px",
-              border: "1px solid pink",
+              border: "1px solid black",
               borderRadius: "4px",
-              width: '180px'
+              width: "180px",
             }}
           />
           <button className="workout" type="submit">

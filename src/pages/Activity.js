@@ -35,7 +35,7 @@ const activities = [
   },
   {
     title: 'Leg',
-    content: 'Leg workouts, featuring squats and lunges, build leg strength with a focus on form for safety and effectiveness.',
+    content: 'To effectively work your legs, incorporate exercises like squats, lunges, deadlifts, and leg press into your routine. Focus on proper form to build strength and muscle while minimizing the risk of injury.',
     url: 'https://www.youtube.com/watch?v=SDAVyMuPah0',
     icon: 'fitness_center', 
   },
