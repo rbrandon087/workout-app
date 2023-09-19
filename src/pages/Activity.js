@@ -85,3 +85,5 @@ function Activity() {
     </div>
   );
 }
+
+export default Activity;
