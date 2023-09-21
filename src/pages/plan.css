@@ -54,7 +54,8 @@
 
 button {
   background-color: white;
-  border-style: round;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 body {
@@ -82,3 +83,13 @@ body {
   font-size: 14px;
   color: #666;
 }
+
+h3{
+  color: white;
+}
+
+.workout-name{
+  color: white;
+  font-size: 20px;
+}
+
