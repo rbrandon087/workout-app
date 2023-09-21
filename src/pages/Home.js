@@ -49,7 +49,6 @@ const Home = () => {
     setIsHovered(false);
   };
 
-  // Apply the scale transformation when hovered
   const scaledImageStyle = {
     ...imageStyle,
     transform: isHovered ? "scale(1.05)" : "scale(1)",

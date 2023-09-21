@@ -29,9 +29,17 @@ const Login = () => {
         return;
       }
 
-      localStorage.setItem("token", data.access_token);
       alert("Login successful!");
-      navigate("/");
+      const userUuid = data.user.id;
+      navigate(`/home`);
+      // You can also store the user's UUID in localStorage or a global state if needed
+      localStorage.setItem("userUuid", userUuid);
+      // This would be for a logout button
+      // localStorage.removeItem("userUuid");
+      console.log(userUuid);
+      // const user_id = data.username
+      // res.redirect('/plan/:userid')
+      // navigate("/");
     } catch (error) {
       console.error("Login error:", error);
     }
