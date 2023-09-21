@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js"
 import Tabata from '../components/Tabata';
 import ForTime from '../components/ForTime';
+import './timer.css'
 
 const supabase = createClient(
     "https://zwcwryojtrkygrslhndl.supabase.co",
@@ -20,9 +21,9 @@ class Timer extends Component {
 
     render() {
         return(
-            <div>
-                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration} />
-                <ForTime totalTime={this.state.totalTime} />
+            <div className='timerWrapper'>
+                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration} className='tabata'/>
+                <ForTime totalTime={this.state.totalTime} className='fortime'/>
             </div>
         )
     }

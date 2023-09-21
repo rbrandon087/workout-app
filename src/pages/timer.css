@@ -1,0 +1,14 @@
+.timerWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabata {
+    margin-right: 25vw;
+}
+
+.fortime {
+    margin-left: 25vw;
+}

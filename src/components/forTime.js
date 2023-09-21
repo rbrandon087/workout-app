@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './fortime.css'
 
 class ForTime extends Component {
     constructor(props) {
@@ -82,17 +83,20 @@ class ForTime extends Component {
         const { isRunning, isPreparing } = this.state;
 
         return(
-            <div>
-                <h1>For Time</h1>
-                <div id='forTimeTimer'>{this.updatedTimerDisplay()}</div>
+            <div className='forTime'>
+                <h1 className='forTimeTitle'>For Time</h1>
+                <div id='forTime-timer' className='forTimeTimer'>{this.updatedTimerDisplay()}</div>
                 <input 
                     type='number'
                     placeholder='Enter Total Time (seconds)'
                     value={this.state.inputedTotalTime}
                     onChange={(e) => this.handleTotalTimeChange(e)}
+                    className='forTimeInput'
                 />
-                <button onClick={() => this.startTimer()} disabled={isRunning}>{isPreparing ? 'Get Ready' : 'Start'}</button>
-                <button onClick={() => this.stopTimer()}>Stop</button>
+                <div className='buttonWrapper'>
+                    <button onClick={() => this.startTimer()} disabled={isRunning} className='forTimeButton'>{isPreparing ? 'Get Ready' : 'Start'}</button>
+                    <button onClick={() => this.stopTimer()} className='forTimeButton'>Stop</button>
+                </div>
             </div>
         )
     }
