@@ -67,6 +67,7 @@ const Home = () => {
       <p style={paragraphStyle}>
         Welcome to Workout Plan - Where Fitness Meets Fun! Discover your true potential, achieve your fitness goals, and transform your life with our diverse range of engaging workouts, expert guidance, and a supportive community. Join us today and embark on a journey to a healthier, happier you!
       </p>
+      <p>work done by brandon chris allen jarret and elvin</p>
     </div>
   );
 };
