@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js"
 import Tabata from '../components/Tabata';
-import ForTime from '../components/forTime';
+import ForTime from '../components/ForTime';
 
 const supabase = createClient(
     "https://zwcwryojtrkygrslhndl.supabase.co",
