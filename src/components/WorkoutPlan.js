@@ -23,7 +23,7 @@ class WorkoutPlan extends Component {
 
     const [year, month, day] = this.state.date.split("-").map(Number);
 
-    const workoutDate = new Date(year, month - 1, day);
+    const workoutDate = new Date(year, month - 1, day + 1);
 
     const workout = {
       date: workoutDate,

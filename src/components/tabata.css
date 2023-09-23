@@ -1,0 +1,41 @@
+.tabata {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.tabataTitle {
+    
+}
+
+.tabataTimer {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tabataInput {
+    padding: 10px;
+    margin-bottom: 10px;    
+    text-align: center;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabataButton {
+    padding: 10px 20px;
+    background-color: #0B1B3D;
+    color: #fff;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}

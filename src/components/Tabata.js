@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './tabata.css'
 
 class Tabata extends Component{
     constructor(props) {
@@ -108,19 +109,22 @@ class Tabata extends Component{
         const { isRunning, totalTime } = this.state;
 
         return (
-            <div>
-                <h1>Tabata</h1>
-                <div id="tabataTimer">{this.updatedTimerDisplay()}</div>
+            <div className='tabata'>
+                <h1 className='tabataTitle'>Tabata</h1>
+                <div id="tabata-timer" className='tabataTimer'>{this.updatedTimerDisplay()}</div>
                 <input 
                     type="number"
                     placeholder='Enter Total Time (seconds)'
                     defaultValue={totalTime}
                     onChange={(e) => this.handleTotalTimeChange(e)}
+                    className='tabataInput'
                 />
-                <button onClick={() => this.startTimer()} disabled={isRunning}>
-                    Start
-                </button>
-                <button onClick={() => this.stopTimer()}>Stop</button>
+                <div className='buttonWrapper'>
+                    <button onClick={() => this.startTimer()} disabled={isRunning} className='tabataButton'>
+                        Start
+                    </button>
+                    <button onClick={() => this.stopTimer()} className='tabataButton'>Stop</button>
+                </div>
             </div>
         );
     }

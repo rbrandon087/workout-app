@@ -70,7 +70,7 @@ class Plan extends Component {
       calendarHTML += `<div class="day">${dayNumber}`;
 
       // Check if there are workouts for this day
-      const workoutsForDay = workouts.filter(workout => {
+      const workoutsForDay = workouts.filter((workout) => {
         const workoutDate = new Date(workout.workout_date);
         return (
           workoutDate.getDate() === dayNumber &&
@@ -81,7 +81,7 @@ class Plan extends Component {
 
       if (workoutsForDay.length > 0) {
         calendarHTML += "<ul>";
-        workoutsForDay.forEach(workout => {
+        workoutsForDay.forEach((workout) => {
           calendarHTML += `<li>${workout.workout_type} - ${workout.Duration} mins</li>`;
         });
         calendarHTML += "</ul>";
@@ -133,10 +133,10 @@ class Plan extends Component {
     });
   };
 
-  addWorkout = async workout => {
+  addWorkout = async (workout) => {
     // Add the workout to the workouts array
     this.setState(
-      prevState => ({
+      (prevState) => ({
         workouts: [...prevState.workouts, workout],
       }),
       () => {
@@ -158,6 +158,22 @@ class Plan extends Component {
       .insert(my_workout_info);
   };
 
+  deleteWorkout = async (workoutToDelete) => {
+    // Filter out the workout to delete from the state
+    const updatedWorkouts = this.state.workouts.filter(
+      (workout) => workout !== workoutToDelete
+    );
+
+    // Update the state with the filtered workouts
+    this.setState({ workouts: updatedWorkouts }, () => {
+      // After deleting the workout, regenerate the calendar to update the UI
+      this.generateCalendar();
+    });
+
+    // Make a request to delete the workout from Supabase
+    await supabase.from("Workouts").delete().eq("id", workoutToDelete.id); // Replace 'id' with your actual primary key field
+  };
+
   render() {
     return (
       <div className="plan">
@@ -172,37 +188,33 @@ class Plan extends Component {
         <div className="workout-form">
           <WorkoutPlan addWorkout={this.addWorkout} />
         </div>
+        <div className="workouts-list">
+          <h3>Your Workouts</h3>
+          <ul>
+            {this.state.workouts.map((workout, index) => (
+              <li key={index}>
+                <span className="workout-name">{`${workout.workout_type} - ${workout.Duration} mins`}</span>
+                <button 
+                onClick={() => this.deleteWorkout(workout)}
+                style={{
+                  backgroundColor: 'red', // Background color
+                  color: 'white',          // Text color
+                  border: 'solid 1px black',          // Remove border
+                  padding: '5px 10px',     // Adjust padding
+                  cursor: 'pointer',       // Change cursor on hover
+                  margin: '5px',
+                  borderRadius: '5px'
+                }}
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
-
-  //   addWorkout = workout => {
-  //     // Add the workout to the workouts array
-  //     this.setState(
-  //       prevState => ({
-  //         workouts: [...prevState.workouts, workout],
-  //       }),
-  //       () => {
-  //         // After adding the workout, regenerate the calendar to display it
-  //         this.generateCalendar();
-
-  //         // Insert the workout data into a Supabase table (replace 'workouts' and 'your_table_name' with your actual table name)
-  //         supabase
-  //           .from("Workouts")
-  //           .upsert([workout])
-  //           .then(result => {
-  //             if (result.error) {
-  //               console.error("Error inserting workout data:", result.error);
-  //             } else {
-  //               console.log("Workout data inserted successfully:", result.data);
-  //             }
-  //           })
-  //           .catch(error => {
-  //             console.error("Error inserting workout data:", error);
-  //           });
-  //       }
-  //     );
-  //   };
 }
 
 export default Plan;

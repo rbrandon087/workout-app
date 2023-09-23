@@ -20,9 +20,9 @@ class Timer extends Component {
 
     render() {
         return(
-            <div>
-                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration} />
-                <ForTime totalTime={this.state.totalTime} />
+            <div className='timerWrapper'>
+                <Tabata workDuration={this.state.workDuration} restDuration={this.state.restDuration} className='tabata'/>
+                <ForTime totalTime={this.state.totalTime} className='fortime'/>
             </div>
         )
     }
